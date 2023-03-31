@@ -1,0 +1,22 @@
+.shop-contaneir{
+    background-color: beige;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+
+}
+.products-container{
+    background-color: white;
+    padding:1px 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 35px;
+    
+
+    
+}
+.cart-container{
+    background: #FF99004D;
+    padding:0, 10px;
+
+    
+}
