@@ -11,7 +11,7 @@ const Cart = (props) => {
     for(const product of  cart){
         totalPrice= totalPrice+product.price;
         totalShipping =totalShipping+product.shipping
-        console.log(product)
+        // console.log(product)
     }
     let tax=totalPrice*7/100;
     
