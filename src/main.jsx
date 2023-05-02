@@ -12,38 +12,51 @@ import Orders from './componentes/Orders/Orders';
 import Inventory from './componentes/Inventory/Inventory';
 import Login from './componentes/Login/Login';
 import CartProductsLoader from './lodar/CartProductsLodar';
+import Checkout from './componentes/Checkout/Checkout';
+import SignUp from './componentes/SignUp/SignUp';
+import AUthProvider from './componentes/Provider/AUthProvider';
+import PrivetRouts from './routes/PrivetRouts';
 
-const router=createBrowserRouter([
+const router = createBrowserRouter([
   {
-    path:'/',
-    element:<Home/>,
-    children:[
+    path: '/',
+    element: <Home />,
+    children: [
       {
-        path:'/',
-        element:<Shop/>
-         
+        path: '/',
+        element: <Shop />
+
       },
       {
-        path:'orders',
-        element:<Orders/>,
+        path: 'orders',
+        element: <Orders />,
         // loader:()=> fetch('products.json')
-        loader:CartProductsLoader
+        loader: CartProductsLoader
       },
       {
-        path:'inventory',
-        element:<Inventory/>
+        path: 'inventory',
+        element: <Inventory />
+      },
+      {
+        path: 'checkout',
+        element: <PrivetRouts><Checkout /></PrivetRouts>
+      }, {
+        path: 'signup',
+        element: <SignUp />
       },
       {
         path: 'login',
-        element:<Login/>
+        element: <Login />
       }
     ]
-    
+
   }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <AUthProvider>
+      <RouterProvider router={router}></RouterProvider>
+    </AUthProvider>
   </React.StrictMode>,
 )

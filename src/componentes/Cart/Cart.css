@@ -20,3 +20,15 @@
     
 
 }
+.clear-cart-btn{
+    width: 91%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ff3030;
+    border-radius: 4px;
+    color: white;
+    font-size: 21px;
+}
+.btn-procedo{}

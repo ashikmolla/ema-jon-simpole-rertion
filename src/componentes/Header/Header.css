@@ -16,3 +16,12 @@
     color:#ffffff;
     margin-right: 20px;
 }
+.text-white{
+    color: white;
+    margin-left: 5px;
+}
+.signoutbtn{
+    color: white;
+     background: none;
+     margin-left: 10px;
+}

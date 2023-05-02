@@ -2,30 +2,33 @@ import React, { useEffect, useState } from 'react';
 import './Shop.css'
 import Products from '../Product/Products';
 import Cart from '../Cart/Cart';
-import { addToDb, getShoppingCart } from '../../utilities/fakedb';
+import { addToDb, deleteShoppingCart, getShoppingCart } from '../../utilities/fakedb';
+import { Link } from 'react-router-dom';
+import  { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import  { faArrowCircleRight, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
-    const [cart, setCart]=useState([])
+    const [cart, setCart] = useState([])
 
     useEffect(() => {
         fetch('products.json')
             .then(res => res.json())
             .then(data => setProducts(data))
     }, [])
-    useEffect(()=>{
-        const storedCart = getShoppingCart();                   
+    useEffect(() => {
+        const storedCart = getShoppingCart();
         // console.log(storedCart)
-        const saveCart=[];
+        const saveCart = [];
 
         // stap 1: get id
-        for (const id in storedCart){
+        for (const id in storedCart) {
             // stap 2: get the product by using id 
             const addedProduct = products.find(product => product.id === id);
             // stap  3: get  quantity of the products  
-            if(addedProduct){
-                const quantity =storedCart[id];
-                addedProduct.quantity=quantity;
+            if (addedProduct) {
+                const quantity = storedCart[id];
+                addedProduct.quantity = quantity;
                 // stap 4: add the added product to save
                 saveCart.push(addedProduct)
 
@@ -35,13 +38,17 @@ const Shop = () => {
             // console.log(" addedproduct" , addedProduct)
 
         }
-            },[products])
+    }, [products])
 
-    const handleAddYoCart = (product) =>{
-        const newCart =[...cart, product]
+    const handleAddYoCart = (product) => {
+        const newCart = [...cart, product]
         setCart(newCart)
         addToDb(product.id)
-     }
+    }
+    const handelClearCart = () => {
+        setCart([])
+        deleteShoppingCart()
+    }
 
     return (
         <div className='shop-contaneir'>
@@ -56,7 +63,16 @@ const Shop = () => {
 
             </div>
             <div className='cart-container'>
-                <Cart cart={cart}></Cart>
+                <Cart
+                    cart={cart}
+                    handelClearCart={handelClearCart}
+                >
+                    <Link to="/orders">
+                        <button className='btn-procedo'> 
+                        <span>Review Order</span>
+                        <FontAwesomeIcon  className='clear-cart-btn-icon' icon={faArrowRight} /></button>  
+                    </Link>
+                </Cart>
 
             </div>
 
