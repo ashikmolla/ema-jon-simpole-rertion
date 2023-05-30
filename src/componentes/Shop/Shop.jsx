@@ -12,7 +12,7 @@ const Shop = () => {
     const [cart, setCart] = useState([])
 
     useEffect(() => {
-        fetch('products.json')
+        fetch('http://localhost:5000/products')
             .then(res => res.json())
             .then(data => setProducts(data))
     }, [])
@@ -24,7 +24,7 @@ const Shop = () => {
         // stap 1: get id
         for (const id in storedCart) {
             // stap 2: get the product by using id 
-            const addedProduct = products.find(product => product.id === id);
+            const addedProduct = products.find(product => product._id === id);
             // stap  3: get  quantity of the products  
             if (addedProduct) {
                 const quantity = storedCart[id];
@@ -43,7 +43,7 @@ const Shop = () => {
     const handleAddYoCart = (product) => {
         const newCart = [...cart, product]
         setCart(newCart)
-        addToDb(product.id)
+        addToDb(product._id)
     }
     const handelClearCart = () => {
         setCart([])
@@ -55,7 +55,7 @@ const Shop = () => {
             <div className='products-container'>
                 {
                     products.map(product => <Products
-                        key={product.id} product={product}
+                        key={product._id} product={product}
                         handleAddYoCart={handleAddYoCart}
 
                     ></Products>)
