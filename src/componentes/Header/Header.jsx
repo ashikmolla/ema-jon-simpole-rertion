@@ -24,7 +24,7 @@ const Header = () => {
                 <Link to="/signup">SigN Up</Link> 
                 <Link to="/login">Login</Link> 
                 {
-                    user&& <spen className="text-white">Your Email:- {user.email} <button className='signoutbtn' onClick={handlesignOut}>{logOut} Sign Out</button></spen>
+                    user&& <spen className="text-white"> <button className='signoutbtn' onClick={handlesignOut}>{logOut} Sign Out</button></spen>
                 }
             </div>
 

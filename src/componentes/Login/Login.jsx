@@ -7,6 +7,7 @@ import { AuthContext } from '../Provider/AUthProvider';
 const Login = () => {
     const {user, signIn}=useContext(AuthContext);
     const [error, setError] = useState();
+    const [show, setShow]=useState(false);
     const navigate= useNavigate();
     /// crrourent route jaowar jonno 
     const location= useLocation();
@@ -43,8 +44,13 @@ const Login = () => {
                 </div>
                 <div className="form-container">
                     <label htmlFor="">Password</label>
-                    <input type="password" name="password" placeholder='Password' required />
+                    <input type={show? "text" : "password"} name="password" placeholder='Password' required />
                 </div>
+                <p className='showpassword' onClick={()=> setShow(!show)}><small>
+                    {
+                        show?<spen>Hide Password</spen>: <span>Show password</span>
+                    }
+                    </small></p>
                 <p className='text-error'>{error}</p>
                 <div className="form-container">
                    <button>Login</button>
