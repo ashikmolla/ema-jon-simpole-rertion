@@ -20,6 +20,7 @@
     font-size: 15px;
     margin-bottom: 1px;
     margin-left: 5px;
+    margin-top: 2px;
 
 }
 .products h4{
@@ -29,20 +30,25 @@
     
 
 }
-.products p{
-    font-size: 14px;
-    margin-top: 1px;
-    margin-bottom: 10px;
-    margin-left: 5px;
-    
 
+.products-seler{
+    margin-bottom: -14px;
+    margin-top: -10px;
+}
+.products-rating{
+   margin-bottom: 45px;
+}
+.retingColor{
+    color:orangered
 }
 .add-cart-btn{
-    background: rgba(255, 153, 0, 0.3);
-    width:100%;  
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    border-top:1px solid rgb(240, 191, 183);
+   
+      width: 100%;
+    background: #FFE0B3;
+    border: 1px solid #95A0A7;
+    border-radius: 0px 0px 8px 8px;
+    position: absolute;
+    bottom: 0;
 
     
 }

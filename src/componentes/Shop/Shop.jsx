@@ -3,13 +3,22 @@ import './Shop.css'
 import Products from '../Product/Products';
 import Cart from '../Cart/Cart';
 import { addToDb, deleteShoppingCart, getShoppingCart } from '../../utilities/fakedb';
-import { Link } from 'react-router-dom';
-import  { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import  { faArrowCircleRight, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { Link, useLoaderData } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowCircleRight, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
-    const [cart, setCart] = useState([])
+    const [currentPage, setCurrentPage] = useState(0)
+    const [itemsPerPage, setItemsPerPage] = useState(10); // pagination
+    const [cart, setCart] = useState([]);
+    // pagination 
+    const { totalProducts } = useLoaderData();
+    // const itemsPerPage=10; // todo: make it dynamic
+    const totalPage = Math.ceil(totalProducts / itemsPerPage);
+    const pageNumbers = [...Array(totalPage).keys()];
+    const options = [5, 10, 20]
+
 
     useEffect(() => {
         fetch('http://localhost:5000/products')
@@ -49,35 +58,59 @@ const Shop = () => {
         setCart([])
         deleteShoppingCart()
     }
-
+    const option = [5, 10, 20]
+    function handleSelectChange(event) {
+        setItemsPerPage(parseInt(event.target.value));
+        setCurrentPage(0)
+    }
     return (
-        <div className='shop-contaneir'>
-            <div className='products-container'>
+        <>
+            <div className='shop-contaneir'>
+                <div className='products-container'>
+                    {
+                        products.map(product => <Products
+                            key={product._id} product={product}
+                            handleAddYoCart={handleAddYoCart}
+
+                        ></Products>)
+                    }
+
+                </div>
+                <div className='cart-container'>
+                    <Cart
+                        cart={cart}
+                        handelClearCart={handelClearCart}
+                    >
+                        <Link to="/orders">
+                            <button className='btn-procedo'>
+                                <span>Review Order</span>
+                                <FontAwesomeIcon className='clear-cart-btn-icon' icon={faArrowRight} /></button>
+                        </Link>
+                    </Cart>
+
+                </div>
+
+
+            </div>
+            {/* pagination */}
+            <div className='pagination'>
+                <p> Current Page <spen className='text-color'>{currentPage}</spen> Item Per Page <spen className='text-color'>{itemsPerPage}</spen></p>
                 {
-                    products.map(product => <Products
-                        key={product._id} product={product}
-                        handleAddYoCart={handleAddYoCart}
-
-                    ></Products>)
+                    pageNumbers.map(number => <button
+                        key={number}
+                        className={currentPage === number ? 'selected' : ''}
+                        onClick={() => setCurrentPage(number)}
+                    >{number}</button>)
                 }
-
+               <select value={itemsPerPage} onChange={handleSelectChange}>
+                    {options.map(option => (
+                        <option key={option} value={option}>
+                            {option}
+                        </option>
+                    ))}
+                </select>
             </div>
-            <div className='cart-container'>
-                <Cart
-                    cart={cart}
-                    handelClearCart={handelClearCart}
-                >
-                    <Link to="/orders">
-                        <button className='btn-procedo'> 
-                        <span>Review Order</span>
-                        <FontAwesomeIcon  className='clear-cart-btn-icon' icon={faArrowRight} /></button>  
-                    </Link>
-                </Cart>
-
-            </div>
-
-
-        </div>
+        </>
     );
 };
 

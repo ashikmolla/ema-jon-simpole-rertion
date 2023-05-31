@@ -28,6 +28,18 @@
 .cart-container{
     background: #FF99004D;  
 }
+.pagination{
+    text-align: center;
+    margin-bottom: 50px;
+}
+.pagination .selected{
+  background-color: #FF9900;
+  color: white;
+}
+.text-color{
+    color:orangered
+}
+
 @media only screen and (max-width: 700px){
 
     .products-container{
